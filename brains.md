@@ -2,10 +2,13 @@
 
 1. CSV
 
+```
 source,mm,dd,yyyy,weekday,date,company,company-location,deal-type,funding-round,money-raised,investors,lead-investor,additional-links
-
-eg. 
+```
+eg.
+```
 Fortune,09,26,2017,tuesday,09-26-2017,Accelo,San Francisco,Venture,Series A,$9 million,Level Equity:Fathom Capital:Blackbird Ventures,Level Equity,,
+```
 
 ## Fortune
 
