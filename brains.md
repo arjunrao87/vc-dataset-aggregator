@@ -21,3 +21,17 @@ Start URL = http://fortune.com/2014/12/15/term-sheet-monday-december-15/
 Sample present URL = fortune.com/2017/09/27/term-sheet-tuesday-september-26/
 
 ### Type of data 
+
+### Script
+
+#### URL construction
+```
+>>> from dateutil import parser
+>>> parser.parse('January 11, 2010').strftime("%a")
+'Mon'
+>>> parser.parse('January 11, 2010').strftime("%A")
+'Monday'
+>>> parser.parse('December 15, 2014').strftime("%A")
+'Monday'
+>>> 
+```
