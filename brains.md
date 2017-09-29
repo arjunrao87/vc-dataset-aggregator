@@ -17,6 +17,7 @@ Fortune,09,26,2017,tuesday,09-26-2017,Accelo,San Francisco,Venture,Series A,$9 m
 1. Term sheet started 12/15/2014 - Present 
 
 Start URL = http://fortune.com/2014/12/15/term-sheet-monday-december-15/
+
 Sample present URL = fortune.com/2017/09/27/term-sheet-tuesday-september-26/
 
 ### Type of data 
