@@ -17,20 +17,6 @@ def scrapeFromFortune():
         time.sleep( 5 )
         backupURL = urls[url]
         processURL( url, backupURL )
-        # for h2 in h2s:
-        #     print(h2.string)
-
-def processURL(url, backupURL):
-    print ( "URL = ", url )
-    try:
-        page = urlopen(url)
-        soup = bs(page.read(), "lxml")
-        h2s = soup.find_all('h2')
-    except urllib.error.HTTPError as err:
-        print( "Error encountered - ", err, url)
-        if backupURL != None:
-            print( "Will attempt to try backup URL = " + backupURL)
-            processURL(backupURL,None)
 
 def generateURLs():
     #d1 = date(2011,3, 11)  # start date
@@ -60,4 +46,22 @@ def generateURLs():
         urls[url] = backupURL
     return urls
 
+def processURL(url, backupURL):
+    print ( "URL = ", url )
+    try:
+        page = urlopen(url)
+        soup = bs(page.read(), "lxml")
+        h2s = soup.find_all('h2')
+        for h2 in h2s:
+            print(h2.string)
+    except urllib.error.HTTPError as err:
+        print( "Error encountered - ", err, url)
+        if backupURL != None:
+            print( "Will attempt to try backup URL = " + backupURL)
+            processURL(backupURL,None)
+
+################################# INVOKING SCRAPER ############################
+
 scrapeFromFortune()
+
+###############################################################################
