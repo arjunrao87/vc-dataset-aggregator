@@ -5,19 +5,21 @@ from dateutil import parser
 import time
 import urllib.request
 from pprint import pprint
+import csv
 
 BASE_URL = "http://fortune.com/"
 TRAILING_SLASH = "/"
 HYPHEN = "-"
 TERM_SHEET = "term-sheet-"
 BLACKLIST_DAYS = set(["Saturday","Sunday"])
+CSV_FILE = "./fortune.csv"
 
-def scrapeFromFortune():
+def scrapeFromFortune(csvfile):
     urls = generateURLs()
     for url in urls :
         time.sleep( 5 )
         backupURL = urls[url]
-        processURL( url, backupURL )
+        processURL( csvfile, url, backupURL )
 
 def generateURLs():
     #d1 = date(2011,2, 8)  # start date
@@ -47,18 +49,18 @@ def generateURLs():
         urls[url] = backupURL
     return urls
 
-def processURL(url, backupURL):
+def processURL(csvfile, url, backupURL):
     print ( "URL = ", url )
     try:
         page = urlopen(url)
         soup = bs(page.read(), "lxml")
         result = parseHTML( soup )
-        processResult( result )
+        processResult( csvfile, url, result )
     except urllib.error.HTTPError as err:
         print( "Error encountered - ", err, url)
         if backupURL != None:
             print( "Will attempt to try backup URL = " + backupURL)
-            processURL(backupURL,None)
+            processURL(csvfile, backupURL,None)
 
 def parseHTML( soup ):
     sectionResult = {}
@@ -87,12 +89,23 @@ def parseHTML( soup ):
         sectionResult[sectionKey] = contentResult
     return sectionResult
 
-def processResult(result):
+def processResult(csvfile, url,result):
+    urlParts = url.split(TRAILING_SLASH)
+    dayParts = urlParts[-2].split(HYPHEN)
+    year = urlParts[3]
+    month = urlParts[4]
+    date = urlParts[5]
+    day = dayParts[2]
+    fullDate = str(month) + TRAILING_SLASH + str(date) + TRAILING_SLASH + str(year)
+    source = "Fortune"
+    with open(csvfile, "a+", newline='') as myfile:
+        wr = csv.writer(myfile, quoting=csv.QUOTE_MINIMAL, lineterminator='\n')
+        wr.writerow([source,month,date,year,day,fullDate])
     pprint(result)
 
 
 ################################# INVOKING SCRAPER ############################
 
-scrapeFromFortune()
+scrapeFromFortune(CSV_FILE)
 
 ###############################################################################
