@@ -19,7 +19,7 @@ def scrapeFromFortune():
         processURL( url, backupURL )
 
 def generateURLs():
-    #d1 = date(2011,3, 11)  # start date
+    #d1 = date(2011,2, 8)  # start date
     d1 = date(2011,4, 12)  # start date
     d2 = date.today()
     delta = d2 - d1         # timedelta
@@ -51,14 +51,25 @@ def processURL(url, backupURL):
     try:
         page = urlopen(url)
         soup = bs(page.read(), "lxml")
-        h2s = soup.find_all('h2')
-        for h2 in h2s:
-            print(h2.string)
+        parseHTML( soup )
     except urllib.error.HTTPError as err:
         print( "Error encountered - ", err, url)
         if backupURL != None:
             print( "Will attempt to try backup URL = " + backupURL)
             processURL(backupURL,None)
+
+def parseHTML( soup ):
+    sections = soup.find_all('div', {'class': '_9MDA9q9L'})
+    for section in sections:
+        contents = section.contents
+        for content in contents :
+            headers = content.find_all("h2")
+            anchors = content.find_all('a')
+            for header in headers :
+                print ( "h2 = ", header)
+            for anchor in anchors :
+                link = anchor.get('href');
+                print( "link = ", link )
 
 ################################# INVOKING SCRAPER ############################
 
