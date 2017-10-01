@@ -98,11 +98,15 @@ def processResult(csvfile, url,result):
     day = dayParts[2]
     fullDate = str(month) + TRAILING_SLASH + str(date) + TRAILING_SLASH + str(year)
     source = "Fortune"
+    parseResult(result)
     with open(csvfile, "a+", newline='') as myfile:
         wr = csv.writer(myfile, quoting=csv.QUOTE_MINIMAL, lineterminator='\n')
         wr.writerow([source,month,date,year,day,fullDate])
     pprint(result)
 
+# TODO : This is where all the NLP stuff and tokenization will happen
+def parseResult( result ):
+    print ( "Parsing result" )
 
 ################################# INVOKING SCRAPER ############################
 
