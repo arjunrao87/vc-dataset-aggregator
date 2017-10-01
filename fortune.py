@@ -1,9 +1,7 @@
 from urllib.request import urlopen
 from bs4 import BeautifulSoup as bs
 
-
-#sec.py
-class ScrapeSICCodesFromSEC:
+class ScrapeFromFortune:
     def __call__(self):
         page = urlopen('http://fortune.com/2017/09/27/term-sheet-tuesday-september-26/')
         soup = bs(page.read(), "lxml")
@@ -11,5 +9,5 @@ class ScrapeSICCodesFromSEC:
         for h2 in h2s:
             print(h2.string)
 
-s = ScrapeSICCodesFromSEC()
+s = ScrapeFromFortune()
 s()
