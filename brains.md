@@ -1,4 +1,4 @@
-# Format of saved datasets 
+# Format of saved datasets
 
 1. CSV
 
@@ -14,13 +14,13 @@ Fortune,09,26,2017,tuesday,09-26-2017,Accelo,San Francisco,Venture,Series A,$9 m
 
 ### Time duration ( > 1000 days )
 
-1. Term sheet started 12/15/2014 - Present 
+1. Term sheet started 12/15/2014 - Present
 
-Start URL = http://fortune.com/2014/12/15/term-sheet-monday-december-15/
+Start URL = http://fortune.com/2011/03/01/term-sheet-tuesday-march-1/
 
-Sample present URL = fortune.com/2017/09/27/term-sheet-tuesday-september-26/
+Sample present URL = http://fortune.com/2017/09/27/term-sheet-tuesday-september-26/
 
-### Type of data 
+### Type of data
 
 ### Script
 
@@ -33,5 +33,5 @@ Sample present URL = fortune.com/2017/09/27/term-sheet-tuesday-september-26/
 'Monday'
 >>> parser.parse('December 15, 2014').strftime("%A")
 'Monday'
->>> 
+>>>
 ```
