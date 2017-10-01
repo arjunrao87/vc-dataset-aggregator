@@ -4,6 +4,7 @@ from datetime import date, timedelta
 from dateutil import parser
 import time
 import urllib.request
+from pprint import pprint
 
 BASE_URL = "http://fortune.com/"
 TRAILING_SLASH = "/"
@@ -51,7 +52,8 @@ def processURL(url, backupURL):
     try:
         page = urlopen(url)
         soup = bs(page.read(), "lxml")
-        parseHTML( soup )
+        result = parseHTML( soup )
+        processResult( result )
     except urllib.error.HTTPError as err:
         print( "Error encountered - ", err, url)
         if backupURL != None:
@@ -59,17 +61,35 @@ def processURL(url, backupURL):
             processURL(backupURL,None)
 
 def parseHTML( soup ):
+    sectionResult = {}
     sections = soup.find_all('div', {'class': '_9MDA9q9L'})
+    sectionNum = 0
     for section in sections:
+        sectionKey = "section_" + str(sectionNum)
+        sectionNum = sectionNum+1
         contents = section.contents
+        contentNum = 0
+        contentResult = {}
         for content in contents :
-            headers = content.find_all("h2")
-            anchors = content.find_all('a')
-            for header in headers :
-                print ( "h2 = ", header)
-            for anchor in anchors :
-                link = anchor.get('href');
-                print( "link = ", link )
+            contentRecord = []
+            contentNum = contentNum+1
+            isHeader = content.h2 != None
+            isAnchor = content.a != None
+            link = None
+            if isAnchor :
+                link = content.a.get('href');
+            contentRecord.insert( 0, content.text )
+            contentRecord.insert( 1, isHeader )
+            contentRecord.insert( 2, isAnchor )
+            contentRecord.insert( 3, link )
+            contentKey = "content_" + str(contentNum)
+            contentResult[contentKey] = contentRecord
+        sectionResult[sectionKey] = contentResult
+    return sectionResult
+
+def processResult(result):
+    pprint(result)
+
 
 ################################# INVOKING SCRAPER ############################
 
