@@ -119,7 +119,7 @@ def parseResult( result,csvfile, source,month,date,year,day,fullDate ):
 def writeToFile( csvfile, source,month,date,year,day,fullDate,company, companyLocation, dealType, fundingRound, moneyRaised, investors, leadInvestor, links ):
     with open(csvfile, "a+", newline='') as fortune:
         wr = csv.writer(fortune, quoting=csv.QUOTE_MINIMAL, lineterminator='\n')
-        wr.writerow([source,month,date,year,day,fullDate])
+        wr.writerow([source,month,date,year,day,fullDate,company, companyLocation, dealType, fundingRound, moneyRaised, investors, leadInvestor, links ])
 
 ################################# INVOKING SCRAPER ############################
 
