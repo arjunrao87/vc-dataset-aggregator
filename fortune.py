@@ -98,23 +98,32 @@ def processResult(csvfile, url,result):
     day = dayParts[2]
     fullDate = str(month) + TRAILING_SLASH + str(date) + TRAILING_SLASH + str(year)
     source = "Fortune"
-    results = parseResult(result,csvfile, source,month,date,year,day,fullDate)
+    parseResult(result,csvfile, source,month,date,year,day,fullDate)
 
-# TODO : This is where all the NLP stuff and tokenization will happen
 def parseResult( result,csvfile, source,month,date,year,day,fullDate ):
-    count = 0
     dealType = None
     for section in result :
         contentMap = result[section]
+        count = 0
         for contentKey in contentMap :
             content = contentMap[contentKey]
+            text = content[0]
             if count == 0 :
                 title = content[0]
                 dealType = title[0]
                 count = count + 1
-            print( "Deal value = ", content[0] )
-            company= companyLocation= dealType= fundingRound= moneyRaised= investors= leadInvestor= links = None
-            writeToFile( csvfile, source,month,date,year,day,fullDate,company, companyLocation, dealType, fundingRound, moneyRaised, investors, leadInvestor, links )
+                continue
+            else :
+                if text:
+                    description = text[3:len(text)]
+                    tokens = parseDescription(description)
+                    links = content[3]
+                    company= companyLocation= dealType= fundingRound= moneyRaised= investors= leadInvestor= links=None
+                    writeToFile( csvfile, source,month,date,year,day,fullDate,company, companyLocation, dealType, fundingRound, moneyRaised, investors, leadInvestor, links )
+
+# TODO : This is where all the NLP stuff and tokenization will happen
+def parseDescription( description ):
+    print( "description = ", description )
 
 def writeToFile( csvfile, source,month,date,year,day,fullDate,company, companyLocation, dealType, fundingRound, moneyRaised, investors, leadInvestor, links ):
     with open(csvfile, "a+", newline='') as fortune:
