@@ -102,11 +102,18 @@ def processResult(csvfile, url,result):
     with open(csvfile, "a+", newline='') as myfile:
         wr = csv.writer(myfile, quoting=csv.QUOTE_MINIMAL, lineterminator='\n')
         wr.writerow([source,month,date,year,day,fullDate])
-    pprint(result)
 
 # TODO : This is where all the NLP stuff and tokenization will happen
 def parseResult( result ):
-    print ( "Parsing result" )
+    count = 0
+    for section in result :
+        contents = result[section]
+        if count == 0 :
+            title = contents[0]
+            dealType = title[0]
+            count = count + 1
+        print( "Deal value = ", contents[0] )
+    # pprint(result)
 
 ################################# INVOKING SCRAPER ############################
 
