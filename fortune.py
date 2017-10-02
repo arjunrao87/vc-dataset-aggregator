@@ -98,22 +98,28 @@ def processResult(csvfile, url,result):
     day = dayParts[2]
     fullDate = str(month) + TRAILING_SLASH + str(date) + TRAILING_SLASH + str(year)
     source = "Fortune"
-    parseResult(result)
-    with open(csvfile, "a+", newline='') as myfile:
-        wr = csv.writer(myfile, quoting=csv.QUOTE_MINIMAL, lineterminator='\n')
-        wr.writerow([source,month,date,year,day,fullDate])
+    results = parseResult(result,csvfile, source,month,date,year,day,fullDate)
 
 # TODO : This is where all the NLP stuff and tokenization will happen
-def parseResult( result ):
+def parseResult( result,csvfile, source,month,date,year,day,fullDate ):
     count = 0
+    dealType = None
     for section in result :
-        contents = result[section]
-        if count == 0 :
-            title = contents[0]
-            dealType = title[0]
-            count = count + 1
-        print( "Deal value = ", contents[0] )
-    # pprint(result)
+        contentMap = result[section]
+        for contentKey in contentMap :
+            content = contentMap[contentKey]
+            if count == 0 :
+                title = content[0]
+                dealType = title[0]
+                count = count + 1
+            print( "Deal value = ", content[0] )
+            company= companyLocation= dealType= fundingRound= moneyRaised= investors= leadInvestor= links = None
+            writeToFile( csvfile, source,month,date,year,day,fullDate,company, companyLocation, dealType, fundingRound, moneyRaised, investors, leadInvestor, links )
+
+def writeToFile( csvfile, source,month,date,year,day,fullDate,company, companyLocation, dealType, fundingRound, moneyRaised, investors, leadInvestor, links ):
+    with open(csvfile, "a+", newline='') as fortune:
+        wr = csv.writer(fortune, quoting=csv.QUOTE_MINIMAL, lineterminator='\n')
+        wr.writerow([source,month,date,year,day,fullDate])
 
 ################################# INVOKING SCRAPER ############################
 
