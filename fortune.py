@@ -105,20 +105,19 @@ def parseResult( result,csvfile, source,month,date,year,day,fullDate ):
     for section in result :
         contentMap = result[section]
         count = 0
+        dealType = None
         for contentKey in contentMap :
             content = contentMap[contentKey]
-            text = content[0]
             if count == 0 :
-                title = content[0]
-                dealType = title[0]
+                dealType = content[0]
                 count = count + 1
                 continue
             else :
+                text = content[0]
                 if text:
-                    description = text[3:len(text)]
-                    tokens = parseDescription(description)
+                    tokens = parseDescription(text)
                     links = content[3]
-                    company= companyLocation= dealType= fundingRound= moneyRaised= investors= leadInvestor= links=None
+                    company= companyLocation=fundingRound= moneyRaised= investors= leadInvestor= links=None
                     writeToFile( csvfile, source,month,date,year,day,fullDate,company, companyLocation, dealType, fundingRound, moneyRaised, investors, leadInvestor, links )
 
 # TODO : This is where all the NLP stuff and tokenization will happen
