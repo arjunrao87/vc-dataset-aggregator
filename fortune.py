@@ -17,15 +17,14 @@ CSV_FILE = "./fortune.csv"
 def scrapeFromFortune(csvfile):
     urls = generateURLs()
     for url in urls :
-        time.sleep( 5 )
+        time.sleep( 1 )
         backupURL = urls[url]
         processURL( csvfile, url, backupURL )
 
 def generateURLs():
-    #d1 = date(2011,2, 8)  # start date
-    d1 = date(2011,4, 12)  # start date
+    d1 = date(2011,2, 8)  # start date
     d2 = date.today()
-    delta = d2 - d1         # timedelta
+    delta = d2 - d1       # timedelta
     urls = {}
     for i in range(delta.days + 1):
         currentDate = d1 + timedelta(days=i)
@@ -121,8 +120,16 @@ def parseResult( result,csvfile, source,month,date,year,day,fullDate ):
                     writeToFile( csvfile, source,month,date,year,day,fullDate,company, companyLocation, dealType, fundingRound, moneyRaised, investors, leadInvestor, links )
 
 # TODO : This is where all the NLP stuff and tokenization will happen
+# http://www.nltk.org/book/ch07.html
 def parseDescription( description ):
-    print( "description = ", description )
+    if '•' in description:
+        description = description[2:-1]
+    writeDescription( "./fortune_dataset.txt", description )
+
+def writeDescription( fileName, description) :
+    with open(fileName, "a+", newline='') as fortune:
+        wr = csv.writer(fortune, quoting=csv.QUOTE_MINIMAL, lineterminator='\n')
+        wr.writerow([description])
 
 def writeToFile( csvfile, source,month,date,year,day,fullDate,company, companyLocation, dealType, fundingRound, moneyRaised, investors, leadInvestor, links ):
     with open(csvfile, "a+", newline='') as fortune:
