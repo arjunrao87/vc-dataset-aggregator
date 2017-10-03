@@ -1,5 +1,6 @@
+```
 curl -d "text=SnapRoute, a Palo Alto, Calif.-based open-source networking company, raised $25 million in Series A funding. Norwest Venture Partners led the round, and was joined by Lightspeed, AT&T, and Microsoft Ventures. Read more at Fortune" http://text-processing.com/api/phrases/
-
+```
 
 
 # Links
