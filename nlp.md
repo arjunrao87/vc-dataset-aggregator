@@ -20,3 +20,5 @@ http://www.nltk.org/api/nltk.tag.html#module-nltk.tag.stanford
 http://thinknook.com/10-ways-to-improve-your-classification-algorithm-performance-2013-01-21/
 
 https://gist.github.com/lizadaly/7071e0de589883a197433951bc7314c5
+
+http://www.nltk.org/book/ch01.html
