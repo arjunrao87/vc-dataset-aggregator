@@ -124,7 +124,7 @@ def parseResult( result,csvfile, source,month,date,year,day,fullDate ):
 def parseDescription( description ):
     if '•' in description:
         description = description[2:-1]
-    writeDescription( "./fortune_dataset.txt", description )
+    # writeDescription( "./fortune_dataset.txt", description )
 
 def writeDescription( fileName, description) :
     with open(fileName, "a+", newline='') as fortune:
