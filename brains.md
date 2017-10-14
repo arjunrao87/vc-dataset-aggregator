@@ -12,7 +12,7 @@ Fortune,09,26,2017,tuesday,09-26-2017,Accelo,San Francisco,Venture,Series A,$9 m
 
 ## Fortune
 
-### Time duration ( > 1000 days )
+### Time duration ( > 2000 days )
 
 1. Term sheet started 03/01/2011 - Present
 
