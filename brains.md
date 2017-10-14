@@ -14,7 +14,7 @@ Fortune,09,26,2017,tuesday,09-26-2017,Accelo,San Francisco,Venture,Series A,$9 m
 
 ### Time duration ( > 1000 days )
 
-1. Term sheet started 12/15/2014 - Present
+1. Term sheet started 03/01/2011 - Present
 
 Start URL = http://fortune.com/2011/03/01/term-sheet-tuesday-march-1/
 
