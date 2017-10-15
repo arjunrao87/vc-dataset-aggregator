@@ -13,7 +13,7 @@ TRAILING_SLASH = "/"
 HYPHEN = "-"
 TERM_SHEET = "term-sheet-"
 BLACKLIST_DAYS = set(["Saturday","Sunday"])
-CSV_FILE = "./fortune.csv"
+CSV_FILE = "./assets/fortune.csv"
 
 def scrapeFromFortune(csvfile):
     urls = generateURLs()
@@ -123,6 +123,7 @@ def parseResult( result,csvfile, source,month,date,year,day,fullDate ):
 def parseDescription( description ):
     if '•' in description:
         description = description[2:-1]
+        # TODO : This needs to return something for the csv file
         processSentence( description )
     # writeDescription( "./fortune_dataset.txt", description )
 
