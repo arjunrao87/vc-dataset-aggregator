@@ -6,6 +6,7 @@ import time
 import urllib.request
 from pprint import pprint
 import csv
+from fortune_nlp import processSentence
 
 BASE_URL = "http://fortune.com/"
 TRAILING_SLASH = "/"
@@ -119,11 +120,10 @@ def parseResult( result,csvfile, source,month,date,year,day,fullDate ):
                     company= companyLocation=fundingRound= moneyRaised= investors= leadInvestor= links=None
                     writeToFile( csvfile, source,month,date,year,day,fullDate,company, companyLocation, dealType, fundingRound, moneyRaised, investors, leadInvestor, links )
 
-# TODO : This is where all the NLP stuff and tokenization will happen
-# http://www.nltk.org/book/ch07.html
 def parseDescription( description ):
     if '•' in description:
         description = description[2:-1]
+        processSentence( description )
     # writeDescription( "./fortune_dataset.txt", description )
 
 def writeDescription( fileName, description) :
