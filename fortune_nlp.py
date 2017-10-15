@@ -7,7 +7,7 @@ fortune_stopwords = ["the", "and", "by","in", "raised", "was", "other", "joined"
 r = Rake( fortune_stopwords, [","] ) # Uses stopwords for english from NLTK, and all puntuation characters.
 
 # Stanford NER setup
-st = StanfordNERTagger('/Users/arjunrao/Downloads/stanford-ner-2017-06-09/classifiers/english.all.3class.distsim.crf.ser.gz','/Users/arjunrao/Downloads/stanford-ner-2017-06-09/stanford-ner.jar',encoding='utf-8')
+st = StanfordNERTagger('./resources/english.all.3class.distsim.crf.ser.gz','./resources/stanford-ner.jar',encoding='utf-8')
 
 # http://textminingonline.com/getting-started-with-keyword-extraction
 # http://www.nltk.org/book/ch07.html
@@ -38,3 +38,4 @@ def categorize( company, phrases ):
 def entityRecognition( text ):
     tokenized_text = word_tokenize(text)
     classified_text = st.tag(tokenized_text)
+    print ( classified_text )
