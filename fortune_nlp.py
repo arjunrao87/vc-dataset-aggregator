@@ -23,7 +23,7 @@ def processSentence( sentence ):
     company = sentence.split( ",")[0]
     funding_round, funding_amount = getFundingDetails( phrases )
     vc_firms, locations = getLocationAndFirms( sentence )
-    print ( funding_round, funding_amount, vc_firms, locations )
+    return funding_round, funding_amount, vc_firms, locations, company
 
 def getFundingDetails( phrases ):
     funding_round = None

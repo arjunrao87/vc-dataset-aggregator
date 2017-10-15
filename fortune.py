@@ -14,6 +14,7 @@ HYPHEN = "-"
 TERM_SHEET = "term-sheet-"
 BLACKLIST_DAYS = set(["Saturday","Sunday"])
 CSV_FILE = "./assets/fortune.csv"
+MULTIPLE_SEPARATOR = ":"
 
 def scrapeFromFortune(csvfile):
     urls = generateURLs()
@@ -115,18 +116,20 @@ def parseResult( result,csvfile, source,month,date,year,day,fullDate ):
             else :
                 text = content[0]
                 if text:
-                    tokens = parseDescription(dealType, text)
-                    links = content[3]
-                    company= companyLocation=fundingRound= moneyRaised= investors= leadInvestor= links=None
-                    writeToFile( csvfile, source,month,date,year,day,fullDate,company, companyLocation, dealType, fundingRound, moneyRaised, investors, leadInvestor, links )
+                    if( dealType == "VENTURE DEALS"):
+                        fundingRound, funding, firms, locations, company = parseDescription(dealType, text)
+                        companyLocation = MULTIPLE_SEPARATOR.join( locations );
+                        investors = MULTIPLE_SEPARATOR.join( firms )
+                        moneyRaised  = MULTIPLE_SEPARATOR.join( funding )
+                        links = content[3]
+                        leadInvestor = ""
+                        writeToFile( csvfile, source,month,date,year,day,fullDate,company, companyLocation, dealType, fundingRound, moneyRaised, investors, leadInvestor, links )
 
 def parseDescription( dealType, description ):
     if '•' in description:
         description = description[2:-1]
-        # TODO : This needs to return something for the csv file
-        if( dealType == "VENTURE DEALS"):
-            processSentence( description )
-    # writeDescription( "./fortune_dataset.txt", description )
+        return processSentence( description )
+    return [''] * 5
 
 def writeDescription( fileName, description) :
     with open(fileName, "a+", newline='') as fortune:
@@ -134,6 +137,7 @@ def writeDescription( fileName, description) :
         wr.writerow([description])
 
 def writeToFile( csvfile, source,month,date,year,day,fullDate,company, companyLocation, dealType, fundingRound, moneyRaised, investors, leadInvestor, links ):
+    print (source,month,date,year,day,fullDate,company, companyLocation, dealType, fundingRound, moneyRaised, investors, leadInvestor, links )
     with open(csvfile, "a+", newline='') as fortune:
         wr = csv.writer(fortune, quoting=csv.QUOTE_MINIMAL, lineterminator='\n')
         wr.writerow([source,month,date,year,day,fullDate,company, companyLocation, dealType, fundingRound, moneyRaised, investors, leadInvestor, links ])
