@@ -115,16 +115,17 @@ def parseResult( result,csvfile, source,month,date,year,day,fullDate ):
             else :
                 text = content[0]
                 if text:
-                    tokens = parseDescription(text)
+                    tokens = parseDescription(dealType, text)
                     links = content[3]
                     company= companyLocation=fundingRound= moneyRaised= investors= leadInvestor= links=None
                     writeToFile( csvfile, source,month,date,year,day,fullDate,company, companyLocation, dealType, fundingRound, moneyRaised, investors, leadInvestor, links )
 
-def parseDescription( description ):
+def parseDescription( dealType, description ):
     if '•' in description:
         description = description[2:-1]
         # TODO : This needs to return something for the csv file
-        processSentence( description )
+        if( dealType == "VENTURE DEALS"):
+            processSentence( description )
     # writeDescription( "./fortune_dataset.txt", description )
 
 def writeDescription( fileName, description) :
