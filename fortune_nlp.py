@@ -3,15 +3,19 @@ from nltk.tag import StanfordNERTagger
 from nltk.tokenize import word_tokenize
 
 # Rake setup
+# http://textminingonline.com/getting-started-with-keyword-extraction
+# http://www.nltk.org/book/ch07.html
+# https://github.com/csurfer/rake-nltk
 fortune_stopwords = ["the", "and", "by","in", "raised", "was", "other", "joined", "round", "-", "based","has","fortune", "read", "more", "from", "an"]
 r = Rake( fortune_stopwords, [","] ) # Uses stopwords for english from NLTK, and all puntuation characters.
 
 # Stanford NER setup
+# https://www.quora.com/What-are-the-best-python-libraries-for-extracting-location-from-text
+# http://textminingonline.com/how-to-use-stanford-named-entity-recognizer-ner-in-python-nltk-and-other-programming-languages
+# https://pythonprogramming.net/named-entity-recognition-stanford-ner-tagger/
+# https://nlp.stanford.edu/software/CRF-NER.shtml#Download
 st = StanfordNERTagger('./resources/english.all.3class.distsim.crf.ser.gz','./resources/stanford-ner.jar',encoding='utf-8')
 
-# http://textminingonline.com/getting-started-with-keyword-extraction
-# http://www.nltk.org/book/ch07.html
-# https://github.com/csurfer/rake-nltk
 def processSentence( sentence ):
     print ( sentence )
     r.extract_keywords_from_text(sentence)
